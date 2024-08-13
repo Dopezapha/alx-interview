@@ -26,6 +26,7 @@ def extract_input(input_line):
         }
     return None
 
+
 def print_statistics(total_file_size, status_codes_stats):
     """
     Prints the accumulated statistics of the HTTP request log.
@@ -33,7 +34,9 @@ def print_statistics(total_file_size, status_codes_stats):
     print('File size: {:d}'.format(total_file_size))
     for status_code in sorted(status_codes_stats.keys()):
         if status_codes_stats[status_code] > 0:
-            print('{}: {}'.format(status_code, status_codes_stats[status_code]))
+            print('{}: {}'.format(status_code,
+                  status_codes_stats[status_code]))
+
 
 def run():
     """
@@ -53,7 +56,7 @@ def run():
                 total_file_size += line_info['file_size']
                 if line_info['status_code'] in status_codes_stats:
                     status_codes_stats[line_info['status_code']] += 1
-                
+
             line_count += 1
             if line_count % 10 == 0:
                 print_statistics(total_file_size, status_codes_stats)
@@ -61,6 +64,7 @@ def run():
         pass
     finally:
         print_statistics(total_file_size, status_codes_stats)
+
 
 if __name__ == '__main__':
     run()
