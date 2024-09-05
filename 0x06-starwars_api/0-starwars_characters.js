@@ -23,15 +23,19 @@ if (process.argv.length > 2) {
             return;
           }
           if (characterResponse.statusCode !== 200) {
-            reject(`Error: Status code ${characterResponse.statusCode}`);
+            reject(new Error(`Status code ${characterResponse.statusCode}`));
             return;
           }
           resolve(JSON.parse(charactersReqBody).name);
         });
       }));
     Promise.all(charactersName)
-      .then(names => console.log(names.join('\n')))
-      .catch(allErr => console.error(allErr));
+      .then(names => {
+        console.log(names.join('\n'));
+      })
+      .catch(allErr => {
+        console.error(allErr);
+      });
   });
 } else {
   console.error('Please provide a movie ID');
